@@ -18,5 +18,7 @@ def get_pid(cfg):
     return None
 
 def start_proc(cfg):
-    #os.process_names_cmd)
-    return 1
+    os.system(cfg.process_cmd)
+
+def stop_proc(cfg):
+    pass
