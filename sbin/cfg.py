@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*-
 
-class SearchPidType:
+class SearchDirType:
     lsof_cwd = 0
     proc_cwd = 1
     proc_exe = 2
@@ -8,7 +8,7 @@ class SearchPidType:
 
 __fpath__ = "../server/runserver.py"
 __startup__ = "nohup {__fpath__} > /dev/null 2>&1 &"
-__search_dir_type__ = SearchPidType.lsof_cwd
+__search_dir_type__ = SearchDirType.lsof_cwd
 
 # init
 import os
