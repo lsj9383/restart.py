@@ -7,18 +7,18 @@ import cfg
 
 def main():
     # 文件不存在，则无法重启
-    if not os.path.exists(cfg.process_path):
-        return "{0} not exist".format(cfg.process_name)
+    if not os.path.exists(cfg.path()):
+        return "{0} not exist".format(cfg.name())
 
     # pid锁文件不存在，则不进行重启
-    if not os.path.exists(cfg.process_pid):
-        return "{0}.pid not exist, give up restart".format(cfg.process_name)
+    if not os.path.exists(cfg.pid_lock()):
+        return "{0}.pid not exist, give up restart".format(cfg.name())
 
     # 获取进程pid文件
     pid = helper.get_pid(cfg)
     if pid:
-        os.system("echo {0} > {1}.pid".format(pid, cfg.process_path))
-        return "{0}({1}) is running".format(cfg.process_name, pid)
+        os.system("echo {0} > {1}.pid".format(pid, cfg.path()))
+        return "{0}({1}) is running".format(cfg.name(), pid)
     
     # 启动
     helper.start_proc(cfg)
@@ -26,14 +26,12 @@ def main():
     # 检查是否重启成功
     pid = helper.get_pid(cfg)
     if pid:
-        os.popen("echo {0} > {1}.pid".format(pid, cfg.process_path))
-        return "{0}({1}) restart success".format(cfg.process_name, pid)
+        os.popen("echo {0} > {1}.pid".format(pid, cfg.path()))
+        return "{0}({1}) restart success".format(cfg.name(), pid)
     else:
-        return "{0} restart failed".format(cfg.process_name)
+        return "{0} restart failed".format(cfg.name())
 
 
 if __name__ == "__main__":
     os.chdir(os.path.dirname(__file__))
-    msg = main()
-    if msg:
-        print msg
+    print main()
