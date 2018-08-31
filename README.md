@@ -1,5 +1,5 @@
 # restart.py
-测试环境:
+
 * 操作系统
     * Linux 3.10.0
     * MacOS 10.13.6
