@@ -46,3 +46,6 @@ def start_proc(cfg):
 
 def stop_proc(pid):
     os.kill(int(pid), 15)
+
+def kill_proc(pid):
+    os.kill(int(pid), 9)
