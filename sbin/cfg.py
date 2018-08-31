@@ -1,8 +1,6 @@
 # -*- coding:utf-8 -*-
 
-from enum import Enum
-
-class SearchPidType(Enum):
+class SearchPidType:
     lsof_cwd = 0
     proc_cwd = 1
     proc_exe = 2
