@@ -1,10 +1,11 @@
 # restart.py
 
 * 操作系统
-    * Linux 3.10.0
-    * MacOS 10.13.6
+    * Linux 3.10.0(支持)
+    * MacOS 10.13.6(支持)
 * 脚本版本
-    * Python 2.7(Linux最原生的Python解释器)
+    * Python 2.7(支持)
+    * Python 3.x(后续支持))
 
 ## 一、Use
 ### 1.*server*
@@ -30,6 +31,9 @@
 
 # 重启程序，安装了定时器后才会定时执行，否则也只有手动输入执行
 >> ./restart.sh
+
+# 如果希望关闭定时重启，调用下面脚本
+>> ./uninstall_timer.py
 ```
 
 ## 二、Performance
