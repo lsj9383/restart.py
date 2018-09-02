@@ -46,8 +46,11 @@ cfg.py文件用于指定运行的进程名称，以及进程启动的配置，�
 # 进程的入口程序，可以时绝对路径，也可以时相对路径。相对路径的根路径一定是sbin文件夹
 __fpath__ = "../server/runserver.py"
 
+# 解释器路径，如果不需要解释器，可以设为空字符串
+__interpreter__ = os.popen("which python3").read().strip()
+
 # 进程启动命令，通常在这里指定进程的启动形式，如是否为守护进程，是否将不显示输出，以及参数的指定
-__startup__  = "nohup {__fpath__} > /dev/null 2>&1 &"
+__startup__  = "nohup {__interpreter__} {__fpath__} > /dev/null 2>&1 &"
 
 # pid搜索方式:
 #   lsof_cwd, lsof -p <pid>，通过lsof指令获取入口程序目录(本质上是工作路径)
