@@ -88,7 +88,7 @@ def grep_line_numbers(content, filepath):
     return result
 
 def remove_file_line(line, filepath):
-    if os.popen("uname -a").read().contains("MacBook"):
+    if "MacBook" in os.popen("uname -a").read().strip():
         os.system("sed -i '' '{0}d' {1}".format(line, filepath))
     else:
         os.system("sed -i {0}d' {1}".format(line, filepath))
