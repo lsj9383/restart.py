@@ -17,7 +17,7 @@ def main():
     # 获取进程pid文件
     pid = helper.get_pid(cfg)
     if pid:
-        os.system("echo {0} > {1}.pid".format(pid, cfg.path()))
+        helper.cover_file(pid, cfg.pid_lock())
         return "{0}({1}) is running".format(cfg.name(), pid)
     
     # 启动
@@ -26,7 +26,7 @@ def main():
     # 检查是否重启成功
     pid = helper.get_pid(cfg)
     if pid:
-        os.popen("echo {0} > {1}.pid".format(pid, cfg.path()))
+        helper.cover_file(pid, cfg.pid_lock())
         return "{0}({1}) restart success".format(cfg.name(), pid)
     else:
         return "{0} restart failed".format(cfg.name())

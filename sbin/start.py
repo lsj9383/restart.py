@@ -13,7 +13,7 @@ def main():
     # 根据程序名称获取pid, 若pid存在，则进程已经运行，刷新pid锁文件
     pid = helper.get_pid(cfg)
     if pid:
-        os.system("echo {0} > {1}".format(pid, cfg.pid_lock()))
+        helper.cover_file(pid, cfg.pid_lock())
         return "{0}({1}) is running".format(cfg.name(), pid)
 
     # 启动进程
@@ -22,7 +22,7 @@ def main():
     # 根据查询名称查询pid，若成功，则进程已经启动，否则进程启动失败
     pid = helper.get_pid(cfg)
     if pid:
-        os.popen("echo {0} > {1}".format(pid, cfg.pid_lock()))
+        helper.cover_file(pid, cfg.pid_lock())
         return "{0}({1}) start success".format(cfg.name(), pid)
     else:
         return "{0} start failed".format(cfg.name())

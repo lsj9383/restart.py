@@ -19,9 +19,9 @@ def dir_from_proc_exe(pid):
 def get_pid(cfg):
     # 入口程序目录获取方案映射
     dir_method_mapper = {
-        cfg.SearchPidType.lsof_cwd : dir_from_lsof_cwd,
-        cfg.SearchPidType.proc_cwd : dir_from_proc_cwd,
-        cfg.SearchPidType.proc_exe : dir_from_proc_exe,
+        cfg.SearchDirType.lsof_cwd : dir_from_lsof_cwd,
+        cfg.SearchDirType.proc_cwd : dir_from_proc_cwd,
+        cfg.SearchDirType.proc_exe : dir_from_proc_exe,
     }
     # 查询可能的pid
     find_pids_cmd = "ps aux|grep {0}|awk '{{print $2;}}'".format(cfg.name())
@@ -49,3 +49,46 @@ def stop_proc(pid):
 
 def kill_proc(pid):
     os.kill(int(pid), 9)
+
+def remove_file(file):
+    try:
+        os.remove(file)
+    finally:
+        return None
+
+def cover_file(content, filepath):
+    os.system("echo \"{0}\" > {1}".format(content, filepath))
+
+def append_file(content, filepath):
+    os.system("echo \"{0}\" >> {1}".format(content, filepath))
+
+def crontab_to_file(filepath):
+    os.system("crontab -l > {0}".format(filepath))
+
+def crontab_load_file(filepath):
+    output = os.popen("crontab {0}".format(filepath)).read().strip()
+    return True if len(output) == 0 else False
+
+def to_number(s):
+    number = None
+    try:
+        number = int(s)
+    finally:
+        return number
+
+def grep_line_numbers(content, filepath):
+    result = []
+    lines = os.popen("grep -n \"{0}\" {1}|awk -F ':' '{{print $1}}'".format(content, 
+        filepath)).read()
+    for line in lines:
+        number = to_number(line)
+        if not number:
+            continue
+        result.append(number)
+    return result
+
+def remove_file_line(line, filepath):
+    if os.popen("uname -a").read().contains("MacBook"):
+        os.system("sed -i '' '{0}d' {1}".format(line, filepath))
+    else:
+        os.system("sed -i {0}d' {1}".format(line, filepath))

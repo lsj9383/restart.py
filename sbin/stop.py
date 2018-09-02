@@ -5,19 +5,13 @@ import helper
 import os
 import cfg
 
-def remove_file(file):
-    try:
-        os.remove(file)
-    finally:
-        return None
-
 def main():
     # 根据程序名称获取pid
     pid = helper.get_pid(cfg)
 
     # 若pid不存在，则进程已经停止
     if not pid:
-        remove_file(cfg.pid_lock())
+        helper.remove_file(cfg.pid_lock())
         return "{0} not run".format(cfg.name())
 
     # 关闭进程
@@ -25,7 +19,7 @@ def main():
 
     # 若pid不存在，则进程停止成功
     if not helper.get_pid(cfg):
-        remove_file(cfg.pid_lock())
+        helper.remove_file(cfg.pid_lock())
         return "{0}({1}) stop success".format(cfg.name(), pid)
     else:
         return "{0}({1}) stop failed".format(cfg.name(), pid)
