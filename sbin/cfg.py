@@ -1,7 +1,5 @@
 # -*- coding:utf-8 -*-
 
-import os
-
 class SearchDirType:
     lsof_cwd = 0
     proc_cwd = 1
@@ -9,18 +7,19 @@ class SearchDirType:
     
 
 __fpath__ = "../server/runserver.py"
-__interpreter__ = os.popen("which python").read().strip()
-__startup__ = "nohup {__interpreter__} {__fpath__} > /dev/null 2>&1 &"
+__startup__ = "nohup {__fpath__} > /dev/null 2>&1 &"
 __search_dir_type__ = SearchDirType.lsof_cwd
 
 # init
+import os
 
 os.chdir(os.path.dirname(__file__))
 __fname__ = os.path.basename(__fpath__)
 __fpath__ = os.path.abspath(__fpath__)
-__startup__  = __startup__.format(__interpreter__=__interpreter__, __fpath__ = __fpath__)
+__startup__  = __startup__.format(__fpath__ = __fpath__)
 __pid_lock__ = __fpath__+".pid"
 __timer_comment__ = "\n### {0} restart command".format(__fname__)
+__interpreter__ = os.popen("which python").read().strip()
 __timer_command__ = "* * * * * cd {0} && {1} ./restart.py > /dev/null 2>&1".format(
                         os.getcwd(), __interpreter__)
 
@@ -45,6 +44,3 @@ def timer_comment():
 
 def timer_commamd():
     return __timer_command__
-
-def interpreter():
-    return __interpreter__
