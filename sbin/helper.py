@@ -91,4 +91,4 @@ def remove_file_line(line, filepath):
     if "MacBook" in os.popen("uname -a").read().strip():
         os.system("sed -i '' '{0}d' {1}".format(line, filepath))
     else:
-        os.system("sed -i {0}d' {1}".format(line, filepath))
+        os.system("sed -i '{0}d' {1}".format(line, filepath))
